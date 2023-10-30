@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>如何分析Income Statement</title>
+      <link href="/2023/10/30/how-to-analysis-income-statement/"/>
+      <url>/2023/10/30/how-to-analysis-income-statement/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>如何分析I&#x2F;S表，我们经常能够看到一些高大上的一些图表，诸如此类：</p><p><img src="https://static.dake.win/static/image/fra/msft-is-2023q3.jpeg" alt="Microsoft&#39;s Income Statement"></p><p>如何理解Income Statement呢？让我们看看微软的MSFT的Income Statements，如下：</p><p><img src="https://static.dake.win/static/image/fra/msft-income-statements-2023q3.png" alt="Microsoft&#39;s Income Statement Q3"></p><h3 id="I-S表中需要关注的指标"><a href="#I-S表中需要关注的指标" class="headerlink" title="I&#x2F;S表中需要关注的指标"></a>I&#x2F;S表中需要关注的指标</h3><ol><li>Revenue是否能够持续的增长；</li><li>Gross margin 是多少；</li><li>R&amp;D占比多少；</li><li>公司最大的费用是什么；</li><li>公司的operating margin是多少；</li><li>公司有多少non-operating expense;</li><li>公司的Net  profit margin是多少；</li></ol><h3 id="巴菲特的经验法则"><a href="#巴菲特的经验法则" class="headerlink" title="巴菲特的经验法则"></a>巴菲特的经验法则</h3><ol><li>Gross Margin &#x3D; Gross profit &#x2F; Revenue  &gt; 40%</li><li>SG&amp;A Margin &#x3D; SG&amp;A &#x2F; Gross Porfit  &lt; 30%</li><li>R&amp;D Margin &#x3D; R&amp;D  &#x2F; Gross Porfit &lt; 30%</li><li>Depreciation Margin &#x3D; Depreciation &#x2F; Gross Profit &lt; 10%</li><li>Interest Margin &#x3D; Interest &#x2F; Operating Income &lt; 15%</li><li>Tax margin &#x3D; Taxes &#x2F; Pre-Tax Income vs Corporate Tax Rate</li><li>Net Income mmargin &#x3D; NI &#x2F; Revenue &gt; 20%</li><li>EPS growth &#x3D; Year2 EPS &#x2F; Year 1 EPS &gt; 1</li></ol><p>根据巴菲特经验法则以及income statement中的数据信息，我们可以清楚的知道如下的一些数据：</p><ol><li>微软2023Q3的Revenue为：56.517B</li><li>Gross margin为：71%</li><li>SG&amp;A Margin为：16.6%</li><li>Depreciation Margin为：9.7%</li><li>Interest margin为：无</li><li>Tax margin： 18.3%</li><li>NI margin：39.4%</li><li>EPS growth：27.6%</li><li>公司最大的费用为研发费用</li></ol><p>而在微软的财报中所体现出来的亮点如下：</p><ul><li>Revenue was $56.5 billion and increased 13% (up 12% in constant currency)</li><li>Operating income was $26.9 billion and increased 25% (up 24% in constant currency)</li><li>Net income was $22.3 billion and increased 27% (up 26% in constant currency)</li><li>Diluted earnings per share was $2.99 and increased 27% (up 26% in constant currency)</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 金融 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 财报基础 </tag>
+            
+            <tag> I/S </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>什么是ROIC</title>
       <link href="/2023/10/24/what-is-roic/"/>
       <url>/2023/10/24/what-is-roic/</url>
@@ -22,9 +49,7 @@
             
             <tag> ROIC </tag>
             
-            <tag> Invest </tag>
-            
-            <tag> CFA level2 </tag>
+            <tag> 财报基础 </tag>
             
         </tags>
       
