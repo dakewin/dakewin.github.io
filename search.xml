@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>财报分析的一些技术以及常用的Ratio</title>
+      <link href="/2023/11/04/financial-analysis-techniques/"/>
+      <url>/2023/11/04/financial-analysis-techniques/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="一、财报分析的框架"><a href="#一、财报分析的框架" class="headerlink" title="一、财报分析的框架"></a>一、财报分析的框架</h3><p>通常我们进行一家公司进行财报分析，我们需要遵循怎么样的框架，如下：</p><p><img src="https://static.dake.win/static/image/fra/financial-analysis-framework.png" alt="fra-analysis"></p><p>在这里我们着重关注三个部分：</p><ol><li>Common-Size Analysis</li><li>Ratios </li><li>Equity Analysis,Credit Analysis and Segement Reporting</li></ol><h3 id="二、Common-Size-Analysis"><a href="#二、Common-Size-Analysis" class="headerlink" title="二、Common-Size Analysis"></a>二、Common-Size Analysis</h3><p><strong>1. Common-Size Analysis of the B&#x2F;S:</strong> Balance sheet account &#x2F;Total Asset<br><img src="https://static.dake.win/static/image/fra/bs-common-size.png" alt="bs-common-size"><br><strong>2. Common-Size Analysis of the I&#x2F;S:</strong> Income statement account &#x2F;Revenue<br><img src="https://static.dake.win/static/image/fra/bs-common-size.png" alt="is-common-size"><br><strong>3. Common-Size Analysis of the C&#x2F;F:</strong> 1. Cash flow statement account &#x2F; Revenue 2. Cash outflow &#x2F;Total cash outflow 3. Cash inflow &#x2F; Total cash inflow</p><h3 id="三、Ratio-and-Ratio-analysis"><a href="#三、Ratio-and-Ratio-analysis" class="headerlink" title="三、Ratio and Ratio analysis"></a>三、Ratio and Ratio analysis</h3><p><img src="https://static.dake.win/static/image/fra/financial-ratios.png" alt="financial-ratio"></p><p><strong>1. Activity Ratios 经营比率</strong></p><ul><li>Receivable turnover &#x3D; Revenue &#x2F; Average receivable</li><li>Days of sales outstanding(DSO) &#x3D; 365 &#x2F; Receivable turnover<br>&nbsp; </li><li>Invetory turnover &#x3D; COGS &#x2F; Average inventory</li><li>Days of inventory on hand(DOH) &#x3D; 365 &#x2F;Inventory turnover<br>&nbsp; </li><li>Payable turnover &#x3D; Purchase &#x2F; Average trade payable</li><li>Number of days of payable &#x3D; 365 &#x2F;Payable turnover<br>&nbsp; </li><li>Working capital turnover &#x3D; Revenue &#x2F; Average working capital</li><li>Fixed asset turnover &#x3D; Revenue &#x2F; Average net fixed assets</li><li>Total asset turnover &#x3D; Revenue &#x2F; Average total assets</li></ul><p><strong>2. Liquidity Ratio 流动比率</strong></p><ul><li>Current Ratio &#x3D; Current assets &#x2F; Current liabilities</li><li>Quic Ratio &#x3D; (Short-term marketable security + Receivable) &#x2F; Current liabilities</li><li>Cash Ratio &#x3D; (Short-term marketable security) &#x2F; Current liabilities</li><li>Defensive interval &#x3D; (Short-term marketable security) &#x2F; Daily cash expenditures</li></ul><p>&nbsp;</p><ul><li>Operating cycle &#x3D; DOH + DSO</li><li>Cash conversion cycle &#x3D; DOH + DSO - Number of days of payables</li></ul><p><strong>3. Solvency Ratios</strong></p><ul><li>Debt-to-equity &#x3D; Total Debt &#x2F; Total equity</li><li>Debt-to-capital &#x3D; Total Debt &#x2F; (Total equity + Total equity)</li><li>Debt-to-assets &#x3D; Total Debt &#x2F; Total assets</li><li>Financial leverage &#x3D; Average total assets &#x2F; Average total equity</li></ul><p>注： Total debt is the sum of interest-bearing shor-term &amp; long-term debt</p><p>&nbsp;</p><p><strong>Coverage ratio</strong></p><p>&nbsp;</p><ul><li>Interest coverage &#x3D; EBIT &#x2F; Interest</li><li>Fixed charge coverage &#x3D; (EBIT+ lease payments) &#x2F; (Interest + Lease payments)</li></ul><p><strong>4. Profitbility Ratios</strong></p><p><strong>Return on Sales:</strong></p><ul><li>Gross profit margin</li><li>Operating profit margin</li><li>Pretax margin</li><li>Net profit margin</li></ul><p><strong>Return on Investment</strong></p><ul><li>Operating ROA &#x3D; Operating income &#x2F; Average total assets</li><li>ROA &#x3D; Net income &#x2F; Average total assets</li><li>Return on total capital &#x3D; EBIT &#x2F; Average short and long-term debt equity</li><li>ROE &#x3D; Net income &#x2F; Average total equity</li><li>Return on common equity &#x3D; Net income - Prefered dividends &#x2F; Average common equity</li></ul><h3 id="四、DUPONT-ANALYSIS-杜邦分析法"><a href="#四、DUPONT-ANALYSIS-杜邦分析法" class="headerlink" title="四、DUPONT ANALYSIS 杜邦分析法"></a>四、DUPONT ANALYSIS 杜邦分析法</h3><p><img src="https://static.dake.win/static/image/fra/DuPont-analysis.png" alt="Duponit-analysis"></p><ol><li>ROE &#x3D; NI &#x2F; Average shareholder’s Equity</li><li>ROE &#x3D; ROA * Leverage</li><li>ROE &#x3D; Net profit margin * Total Asset turnover * Leverage</li><li>ROE &#x3D; Tax burden * Interest burden * EBIT margin * Total Asset turnover * Leverage</li></ol><h3 id="五、Quity-analysis-and-valuation-ratios"><a href="#五、Quity-analysis-and-valuation-ratios" class="headerlink" title="五、Quity analysis and valuation ratios"></a>五、Quity analysis and valuation ratios</h3><p><img src="https://static.dake.win/static/image/fra/valuation-ratio.png" alt="Valuation-ratio"></p><h3 id="六、Credit-Analysis"><a href="#六、Credit-Analysis" class="headerlink" title="六、Credit Analysis"></a>六、Credit Analysis</h3><p>Z-Score，“Altman (1968) and Altman, Haldeman, and Narayanan (1977) found that financial ratios could be combined in an effective model for predicting bankruptcy. Altman’s initial work involved creation of a Z-score that was able to correctly predict financial distress.”</p><p><img src="https://static.dake.win/static/image/fra/z-score.png" alt="z-score"></p><p>注：如果z-score低于1.8，那么这家公司就有很大的可能意味着可能会破产。这家公司是针对于<strong>成熟性</strong>的公司，注意使用范围。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 金融 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 财报指标 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>如何阅读现金流量表(Cash Flow Statements)</title>
       <link href="/2023/11/03/how-to-read-cash-flow-statements/"/>
       <url>/2023/11/03/how-to-read-cash-flow-statements/</url>
@@ -101,9 +126,9 @@
       
         <tags>
             
-            <tag> ROIC </tag>
+            <tag> 财务指标 </tag>
             
-            <tag> 财报基础 </tag>
+            <tag> ROIC </tag>
             
         </tags>
       
