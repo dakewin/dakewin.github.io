@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>数据的定义和可视化</title>
+      <link href="/2023/11/07/conceptsofdata-and-datavisualizing/"/>
+      <url>/2023/11/07/conceptsofdata-and-datavisualizing/</url>
+      
+        <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="/assets/css/APlayer.min.css"><script src="/assets/js/APlayer.min.js" class="aplayer-secondary-script-marker"></script><h3 id="数据类型-Data-types"><a href="#数据类型-Data-types" class="headerlink" title="数据类型 Data types"></a>数据类型 Data types</h3><p><strong>1. Numerical data</strong></p><ul><li><strong>Continuous data连续数据：</strong> can take on any numerical value in a specified range of values.<ul><li>上海的摄氏温度</li><li>中国男人的体重</li><li>Continuous data is often represented using histograms and scatterplots. Histograms show the distribution of continuous data, while scatterplots show the relationship between two continuous variables.</li></ul></li><li><strong>Discrete data 离散数据：</strong> result from a counting process<ul><li>一个教室有多少学生</li><li>一个停车场有多少量车</li><li>Continuous data is often represented using histograms and scatterplots. Histograms show the distribution of continuous data, while scatterplots show the relationship between two continuous variables.</li></ul></li></ul><p><strong>2. Categorical data分类数据</strong></p><ul><li><strong>Nominal data名义数据:</strong> are note amenable to being organized in a logical order.<ul><li>比如性别</li><li>血型</li><li>职业</li><li>颜色等；</li></ul></li><li><strong>Ordinal data：</strong> can be logically ordered or ranked<ul><li>比如学生成绩</li><li>电影评分</li><li>客户满意度</li></ul></li></ul><p><strong>3. Cross-Sectional versus vs Times Series vs Pannel Data 横截面数据、时间序列数据和面板数据</strong></p><ul><li><strong>Cross-sectional data:</strong> 在一个时间点给出总体统一特征变量的观测值；比如给出2023年11月6日美股关于科技板块的一天的回报率；</li><li><strong>Time series:</strong> 给出NVDA股票在过去一个月每天的回报率；</li><li><strong>Panel data:</strong> a mix of times-series and cross-sectional data; 比如给出所有标普指数中高科技公司过去五年的回报率；</li></ul><p><strong>4. Structured vs Unstructured Data</strong></p><ul><li><strong>Structured data:</strong> 市场数据、财报分析数据</li><li><strong>Unstructured Data:</strong> 新闻、录音、财报earnings</li></ul><p><strong>5. Data organization</strong></p><ul><li><strong>One-dimensional array</strong> 一维数组</li><li><strong>Two-dimensional rectangular array</strong>（data table）</li><li><strong>Frequency distribution</strong> 频率分布<ul><li>Absolute frequency distribution</li><li>Relative frequency distribution</li><li>Cumulative frequency distributon</li></ul></li></ul><table><thead><tr><th>Return bin</th><th>Absolute Frequency</th><th>Relative Frequency (%)</th><th>Cumulative Absolute Frequency</th><th>Cumulative Relative Frequency(%)</th></tr></thead><tbody><tr><td>5.0 to 6.0</td><td>1</td><td>5.6</td><td>1</td><td>5.56</td></tr><tr><td>6.0 to 7.0</td><td>4</td><td>22.22</td><td>5</td><td>27.78</td></tr><tr><td>7.0 to 8.0</td><td>6</td><td>33.33</td><td>11</td><td>61.11</td></tr><tr><td>8.0 to 9.0</td><td>4</td><td>22.22</td><td>15</td><td>83.33</td></tr><tr><td>9.0 to 10.0</td><td>3</td><td>16.77</td><td>18</td><td>100.00</td></tr></tbody></table><p><strong>6. Contigency table</strong> 列联表，相依表</p><p><img src="https://static.dake.win/static/image/quan/contigency-table.png" alt="Contigency table"></p><h3 id="Data-visualizing"><a href="#Data-visualizing" class="headerlink" title="Data visualizing"></a>Data visualizing</h3><h5 id="Histogram-and-Frequency-Polygon-直方图和频率多边形"><a href="#Histogram-and-Frequency-Polygon-直方图和频率多边形" class="headerlink" title="Histogram and Frequency Polygon 直方图和频率多边形"></a>Histogram and Frequency Polygon 直方图和频率多边形</h5><p>“A histogram is a chart that presents the distribution of numerical data by using the height of a bar or column to represent the <strong>absolute frequency</strong> of <strong>each bin</strong> or <strong>interval</strong> in the distribution.”</p><p><img src="https://static.dake.win/static/image/quan/hist-frequency-polygon.png" alt="hist-frequency-polygon"></p><p><img src="https://static.dake.win/static/image/quan/cumulative-frequency.png" alt="cumulative-frequency"></p><h5 id="Bar-chart"><a href="#Bar-chart" class="headerlink" title="Bar chart"></a>Bar chart</h5><p>The frequency distribution of categorical data can be plotted in a similar type of graph called a bar chart. In a bar chart, <strong>each bar represents a distinct category</strong>, with the bar’s height proportional to the frequency of the corresponding category.</p><p><img src="https://static.dake.win/static/image/quan/bar.png" alt="bar-chart"></p><p><img src="https://static.dake.win/static/image/quan/group-bar-chart.png" alt="group-bar-chart"></p><p><img src="https://static.dake.win/static/image/quan/stacked-bar-chart.png" alt="stacked-bar-chart"></p><h5 id="Tree-map"><a href="#Tree-map" class="headerlink" title="Tree map"></a>Tree map</h5><p>“In addition to bar charts and grouped bar charts, another graphical tool for <strong>displaying categorical data is a tree-map</strong>. It consists of a set of colored rectangles to represent distinct groups, and **the area of each rectangle is proportional to the value of the corresponding group.**”</p><p><img src="https://static.dake.win/static/image/quan/tree-map.png" alt="tree-map"></p><h5 id="Word-cloud"><a href="#Word-cloud" class="headerlink" title="Word cloud"></a>Word cloud</h5><p>“A word cloud (also known as tag cloud) is a visual device for representing textual data. A word cloud consists of words extracted from a source of textual data, with the size of each distinct word being proportional to the frequency with which it appears in the given text.”</p><p><img src="https://static.dake.win/static/image/quan/world-cloud.png" alt="world-cloud"></p><h5 id="Line-Chart"><a href="#Line-Chart" class="headerlink" title="Line Chart"></a>Line Chart</h5><ol><li><strong>Line Chat</strong></li></ol><p><img src="https://static.dake.win/static/image/quan/line-chart.png" alt="line-chart"></p><ol start="2"><li><strong>Bubble line chart</strong><br>“We can replace the data points with varying-sized bubbles to represent a third dimension of the data. Moreover, these bubbles may even be color-coded to present additional information. This version of a line chart is called a bubble line chart.”</li></ol><p><img src="https://static.dake.win/static/image/quan/bubble-line-chart.png" alt="bubble-line-chart"></p><h5 id="Scatter-Plot-散点图"><a href="#Scatter-Plot-散点图" class="headerlink" title="Scatter Plot 散点图"></a>Scatter Plot 散点图</h5><ol><li>“<strong>A scatter plot</strong> is a type of graph for visualizing the joint variation in two numerical variables.It is a useful tool for displaying and understanding potential **relationships between the variables.**”</li><li>A scattoer plot matrix is a useful tool for organizing scatter plots between pairs of variables.</li></ol><p><img src="https://static.dake.win/static/image/quan/scatter-plot.png" alt="scatter-plot"></p><h5 id="Heat-map-热力图"><a href="#Heat-map-热力图" class="headerlink" title="Heat map 热力图"></a>Heat map 热力图</h5><p>“A heat map is a type of graphic that organizes and summarizes data in a tabular format and represents them using a color spectrum. For example, given a portfolio, we can create a contingency table that summarizes the joint frequencies of the stock holdings by sector and by level of market capitalization.”</p><p><img src="https://static.dake.win/static/image/quan/heat-map.png" alt="heat-map"></p><h3 id="如何选择数据可视化"><a href="#如何选择数据可视化" class="headerlink" title="如何选择数据可视化"></a>如何选择数据可视化</h3><p><img src="https://static.dake.win/static/image/quan/how-to-select-visualization-types.png" alt="how-to-select-visualization-map"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Quantitative </category>
+          
+          <category> 统计学 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据可视化 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>财报分析的一些技术以及常用的Ratio</title>
       <link href="/2023/11/04/financial-analysis-techniques/"/>
       <url>/2023/11/04/financial-analysis-techniques/</url>
@@ -48,6 +75,10 @@
             <tag> 财报三部曲 </tag>
             
             <tag> 现金流量表 </tag>
+            
+            <tag> FCFE </tag>
+            
+            <tag> FCFF </tag>
             
         </tags>
       
