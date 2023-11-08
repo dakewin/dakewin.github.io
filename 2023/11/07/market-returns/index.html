@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="统计学中探讨收益率的四个性质如下：  收益率集中于何处（Central trendency） 收益率举起中心位置的偏离有多远（离散度Dispersion） 收益率的分布是堆成的还是偏向一边的（偏度Skewness） 收益率是否出现极端结果的情况（峰度Kurtosis）  一、集中趋势的度量 Measures of central tendency1. Mean  Arthmetic mean 算术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="市场收益率">
+<meta property="og:url" content="https://dake.win/2023/11/07/market-returns/index.html">
+<meta property="og:site_name" content="大有可为">
+<meta property="og:description" content="统计学中探讨收益率的四个性质如下：  收益率集中于何处（Central trendency） 收益率举起中心位置的偏离有多远（离散度Dispersion） 收益率的分布是堆成的还是偏向一边的（偏度Skewness） 收益率是否出现极端结果的情况（峰度Kurtosis）  一、集中趋势的度量 Measures of central tendency1. Mean  Arthmetic mean 算术">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/weighted-mean-formula.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/Geometric-mean-formula.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/Harmonic-mean.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/sample-variance.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/sample-stanard-deviation.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/target-downside-deviation.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/symmetrical-distribution.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/positively-skewed.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/negatively-skewed.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/kurtosis.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/covariance.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/degrees-of-correlation.png">
+<meta property="article:published_time" content="2023-11-07T14:21:00.000Z">
+<meta property="article:modified_time" content="2023-11-08T15:00:01.026Z">
+<meta property="article:author" content="大可">
+<meta property="article:tag" content="集中趋势">
+<meta property="article:tag" content="分位数">
+<meta property="article:tag" content="离散度">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static.dake.win/static/image/quan/weighted-mean-formula.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>市场收益率</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/me">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/11/07/conceptsofdata-and-datavisualizing/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://dake.win/2023/11/07/market-returns/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://dake.win/2023/11/07/market-returns/&text=市场收益率"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://dake.win/2023/11/07/market-returns/&is_video=false&description=市场收益率"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=市场收益率&body=Check out this article: https://dake.win/2023/11/07/market-returns/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://dake.win/2023/11/07/market-returns/&name=市场收益率&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://dake.win/2023/11/07/market-returns/&t=市场收益率"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%9B%86%E4%B8%AD%E8%B6%8B%E5%8A%BF%E7%9A%84%E5%BA%A6%E9%87%8F-Measures-of-central-tendency"><span class="toc-number">1.</span> <span class="toc-text">一、集中趋势的度量 Measures of central tendency</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%86%E4%BD%8D%E6%95%B0Quantiles"><span class="toc-number">2.</span> <span class="toc-text">二、分位数Quantiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A6%BB%E6%95%A3%E5%BA%A6%E7%9A%84%E5%BA%A6%E9%87%8F-Measures-of-dispersion"><span class="toc-number">3.</span> <span class="toc-text">二、离散度的度量 Measures of dispersion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%81%8F%E5%BA%A6-Skewness"><span class="toc-number">4.</span> <span class="toc-text">三、偏度 Skewness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B3%B0%E5%BA%A6-Kurtosis"><span class="toc-number">5.</span> <span class="toc-text">四、峰度 Kurtosis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AECovariance%E5%92%8C%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0Correlation"><span class="toc-number">6.</span> <span class="toc-text">五、协方差Covariance和相关系数Correlation</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        市场收益率
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">大可</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-11-07T14:21:00.000Z" class="dt-published" itemprop="datePublished">2023-11-07</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Quantitative/">Quantitative</a> › <a class="category-link" href="/categories/Quantitative/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">统计学</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E5%88%86%E4%BD%8D%E6%95%B0/" rel="tag">分位数</a>, <a class="p-category" href="/tags/%E7%A6%BB%E6%95%A3%E5%BA%A6/" rel="tag">离散度</a>, <a class="p-category" href="/tags/%E9%9B%86%E4%B8%AD%E8%B6%8B%E5%8A%BF/" rel="tag">集中趋势</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <p>统计学中探讨收益率的四个性质如下：</p>
+<ol>
+<li>收益率集中于何处（Central trendency）</li>
+<li>收益率举起中心位置的偏离有多远（离散度Dispersion）</li>
+<li>收益率的分布是堆成的还是偏向一边的（偏度Skewness）</li>
+<li>收益率是否出现极端结果的情况（峰度Kurtosis）</li>
+</ol>
+<h3 id="一、集中趋势的度量-Measures-of-central-tendency"><a href="#一、集中趋势的度量-Measures-of-central-tendency" class="headerlink" title="一、集中趋势的度量 Measures of central tendency"></a>一、集中趋势的度量 Measures of central tendency</h3><p><strong>1. Mean</strong></p>
+<ol>
+<li><strong>Arthmetic mean 算术平均</strong><ol>
+<li>定义：Arithmetic mean return focus on average <strong>single-period performance</strong>.</li>
+<li>Advantage: <ol>
+<li>Easy to work with mathematically.</li>
+<li>Uses all the information about size and magnitude of the observations.</li>
+</ol>
+</li>
+<li>Disadvantage:<ol>
+<li>Sensitive to extreme values.</li>
+</ol>
+</li>
+<li>There are three options for dealing with extreme values:<ol>
+<li>Do thing;</li>
+<li>Delete all the outliers（离群值；异常值）,calculate <strong>trimmed mean 修剪均值</strong>.</li>
+<li>Peplace the the outliers with another value,calculate <strong>winsorized mean缩微均值</strong>.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><strong>Weighted mean 加权平均</strong><ol>
+<li>公式：<br>  <img src="https://static.dake.win/static/image/quan/weighted-mean-formula.png" alt="weighted-mean-formula"></li>
+<li>用途：Weighted mean are mostly used to calculate <strong>the portfolio return</strong>,or the <strong>expected value based on probabilities</strong>.</li>
+</ol>
+</li>
+<li><strong>Geometric mean 几何平均</strong><ol>
+<li>公式：<br>  <img src="https://static.dake.win/static/image/quan/Geometric-mean-formula.png" alt="Geometric-mean-formula"></li>
+<li>用途：Used to calculate average periodic <strong>compound rate of return on ivestment.</strong> Geometric mean return focus on the profitability of an investment over a <strong>multi-period horizon</strong>.</li>
+</ol>
+</li>
+<li><strong>Harmonic mean 调和平均</strong><ol>
+<li>公式：<br>  <img src="https://static.dake.win/static/image/quan/Harmonic-mean.png" alt="Geometric-mean-formula"></li>
+<li>用途：Used to find average cost per share of stock purchased over time in constant dollar amounts.主要用来建仓，成本最低；</li>
+</ol>
+</li>
+<li><strong>Harmonic Mean &lt;&#x3D; Geometric Mean &lt;&#x3D; Arithmetic Mean</strong></li>
+<li><strong>Median：</strong>“The median is the value of the middle item of a set of items that has been sorted into ascending or descending order. In an odd-numbered sample of n items, the median is the value of the item that occupies the (n + 1)&#x2F;2 position. In an even-numbered sample, we define the median as the mean of the values of items occupying the n&#x2F;2 and (n + 2)&#x2F;2 positions (the two middle items).”<br>3.** Mode：**“The mode is the most frequently occurring value in a distribution”</li>
+</ol>
+<h3 id="二、分位数Quantiles"><a href="#二、分位数Quantiles" class="headerlink" title="二、分位数Quantiles"></a>二、分位数Quantiles</h3><p>Quantiles（or fractile）are often used to <strong>rank performance and investment research</strong>.</p>
+<p>Quantiles：</p>
+<ol>
+<li><p>定义：A value or below which a stated fraction of the data lies. 给定一组观测值，第y个百分数是指这样的一个值，小于等于该值的观测值站总观测值的y%。</p>
+</li>
+<li><p>分位数的分类：</p>
+<ol>
+<li>Quartiles 四分位数</li>
+<li>Quintiles 五分位数</li>
+<li>Deciles 十分位数</li>
+<li>Percentiles 百分位数</li>
+</ol>
+</li>
+<li><p>一个由n个按升序排列数组组成的数组的百分位点位置的计算公式为：</p>
+ <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.816ex;" xmlns="http://www.w3.org/2000/svg" width="14.535ex" height="2.62ex" role="img" focusable="false" viewBox="0 -797.5 6424.7 1158.1" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-I-1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-1-TEX-N-28" d="M94 250Q94 319 104 381T127 488T164 576T202 643T244 695T277 729T302 750H315H319Q333 750 333 741Q333 738 316 720T275 667T226 581T184 443T167 250T184 58T225 -81T274 -167T316 -220T333 -241Q333 -250 318 -250H315H302L274 -226Q180 -141 137 -14T94 250Z"></path><path id="MJX-1-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-1-TEX-N-2B" d="M56 237T56 250T70 270H369V420L370 570Q380 583 389 583Q402 583 409 568V270H707Q722 262 722 250T707 230H409V-68Q401 -82 391 -82H389H387Q375 -82 369 -68V230H70Q56 237 56 250Z"></path><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-N-29" d="M60 749L64 750Q69 750 74 750H86L114 726Q208 641 251 514T294 250Q294 182 284 119T261 12T224 -76T186 -143T145 -194T113 -227T90 -246Q87 -249 86 -250H74Q66 -250 63 -250T58 -247T55 -238Q56 -237 66 -225Q221 -64 221 250T66 725Q56 737 55 738Q55 746 60 749Z"></path><path id="MJX-1-TEX-N-30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D466" xlink:href="#MJX-1-TEX-I-1D466"></use></g><g data-mml-node="mo" transform="translate(767.8,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mo" transform="translate(1823.6,0)"><use data-c="28" xlink:href="#MJX-1-TEX-N-28"></use></g><g data-mml-node="mi" transform="translate(2212.6,0)"><use data-c="1D45B" xlink:href="#MJX-1-TEX-I-1D45B"></use></g><g data-mml-node="mo" transform="translate(3034.8,0)"><use data-c="2B" xlink:href="#MJX-1-TEX-N-2B"></use></g><g data-mml-node="mn" transform="translate(4035,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g><g data-mml-node="mo" transform="translate(4535,0)"><use data-c="29" xlink:href="#MJX-1-TEX-N-29"></use></g><g data-mml-node="mfrac" transform="translate(4924,0)"><g data-mml-node="mi" transform="translate(577.1,485) scale(0.707)"><use data-c="1D466" xlink:href="#MJX-1-TEX-I-1D466"></use></g><g data-mml-node="mn" transform="translate(220,-345) scale(0.707)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(500,0)"></use><use data-c="30" xlink:href="#MJX-1-TEX-N-30" transform="translate(1000,0)"></use></g><rect width="1260.7" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+</ol>
+<h3 id="二、离散度的度量-Measures-of-dispersion"><a href="#二、离散度的度量-Measures-of-dispersion" class="headerlink" title="二、离散度的度量 Measures of dispersion"></a>二、离散度的度量 Measures of dispersion</h3><ol>
+<li>Absolute dispersion <ol>
+<li>Range<ol>
+<li>定义：Range &#x3D; Maximum Value - Minimum Value</li>
+<li>优势和劣势：Easy for computation,but only use two numbers and tell nothing about the distribution of data set.</li>
+</ol>
+</li>
+<li>Mean absolute deviation：<ol>
+<li>公式：  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.798ex;" xmlns="http://www.w3.org/2000/svg" width="24.075ex" height="4.457ex" role="img" focusable="false" viewBox="0 -1617.3 10641.3 1970.1" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-I-1D440" d="M289 629Q289 635 232 637Q208 637 201 638T194 648Q194 649 196 659Q197 662 198 666T199 671T201 676T203 679T207 681T212 683T220 683T232 684Q238 684 262 684T307 683Q386 683 398 683T414 678Q415 674 451 396L487 117L510 154Q534 190 574 254T662 394Q837 673 839 675Q840 676 842 678T846 681L852 683H948Q965 683 988 683T1017 684Q1051 684 1051 673Q1051 668 1048 656T1045 643Q1041 637 1008 637Q968 636 957 634T939 623Q936 618 867 340T797 59Q797 55 798 54T805 50T822 48T855 46H886Q892 37 892 35Q892 19 885 5Q880 0 869 0Q864 0 828 1T736 2Q675 2 644 2T609 1Q592 1 592 11Q592 13 594 25Q598 41 602 43T625 46Q652 46 685 49Q699 52 704 61Q706 65 742 207T813 490T848 631L654 322Q458 10 453 5Q451 4 449 3Q444 0 433 0Q418 0 415 7Q413 11 374 317L335 624L267 354Q200 88 200 79Q206 46 272 46H282Q288 41 289 37T286 19Q282 3 278 1Q274 0 267 0Q265 0 255 0T221 1T157 2Q127 2 95 1T58 0Q43 0 39 2T35 11Q35 13 38 25T43 40Q45 46 65 46Q135 46 154 86Q158 92 223 354T289 629Z"></path><path id="MJX-1-TEX-I-1D434" d="M208 74Q208 50 254 46Q272 46 272 35Q272 34 270 22Q267 8 264 4T251 0Q249 0 239 0T205 1T141 2Q70 2 50 0H42Q35 7 35 11Q37 38 48 46H62Q132 49 164 96Q170 102 345 401T523 704Q530 716 547 716H555H572Q578 707 578 706L606 383Q634 60 636 57Q641 46 701 46Q726 46 726 36Q726 34 723 22Q720 7 718 4T704 0Q701 0 690 0T651 1T578 2Q484 2 455 0H443Q437 6 437 9T439 27Q443 40 445 43L449 46H469Q523 49 533 63L521 213H283L249 155Q208 86 208 74ZM516 260Q516 271 504 416T490 562L463 519Q447 492 400 412L310 260L413 259Q516 259 516 260Z"></path><path id="MJX-1-TEX-I-1D437" d="M287 628Q287 635 230 637Q207 637 200 638T193 647Q193 655 197 667T204 682Q206 683 403 683Q570 682 590 682T630 676Q702 659 752 597T803 431Q803 275 696 151T444 3L430 1L236 0H125H72Q48 0 41 2T33 11Q33 13 36 25Q40 41 44 43T67 46Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628ZM703 469Q703 507 692 537T666 584T629 613T590 629T555 636Q553 636 541 636T512 636T479 637H436Q392 637 386 627Q384 623 313 339T242 52Q242 48 253 48T330 47Q335 47 349 47T373 46Q499 46 581 128Q617 164 640 212T683 339T703 469Z"></path><path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-1-TEX-SO-2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path><path id="MJX-1-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path><path id="MJX-1-TEX-I-1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path id="MJX-1-TEX-N-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path id="MJX-1-TEX-N-7C" d="M139 -249H137Q125 -249 119 -235V251L120 737Q130 750 139 750Q152 750 159 735V-235Q151 -249 141 -249H139Z"></path><path id="MJX-1-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-1-TEX-N-2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path><path id="MJX-1-TEX-N-AF" d="M69 544V590H430V544H69Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D440" xlink:href="#MJX-1-TEX-I-1D440"></use></g><g data-mml-node="mi" transform="translate(1051,0)"><use data-c="1D434" xlink:href="#MJX-1-TEX-I-1D434"></use></g><g data-mml-node="mi" transform="translate(1801,0)"><use data-c="1D437" xlink:href="#MJX-1-TEX-I-1D437"></use></g><g data-mml-node="mo" transform="translate(2906.8,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(3962.6,0)"><g data-mml-node="mstyle" transform="translate(220,683.3)"><g data-mml-node="munderover"><g data-mml-node="mo"><use data-c="2211" xlink:href="#MJX-1-TEX-SO-2211"></use></g><g data-mml-node="mi" transform="translate(1089,477.1) scale(0.707)"><use data-c="1D45B" xlink:href="#MJX-1-TEX-I-1D45B"></use></g><g data-mml-node="TeXAtom" transform="translate(1089,-285.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D456" xlink:href="#MJX-1-TEX-I-1D456"></use></g><g data-mml-node="mo" transform="translate(345,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mn" transform="translate(1123,0)"><use data-c="31" xlink:href="#MJX-1-TEX-N-31"></use></g></g></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(2453.3,0)"><g data-mml-node="mo" transform="translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-1-TEX-N-7C"></use></g></g><g data-mml-node="msub" transform="translate(2731.3,0)"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mi" transform="translate(861,-150) scale(0.707)"><use data-c="1D456" xlink:href="#MJX-1-TEX-I-1D456"></use></g></g><g data-mml-node="mo" transform="translate(4108.5,0)"><use data-c="2212" xlink:href="#MJX-1-TEX-N-2212"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(5108.7,0)"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-1-TEX-N-AF"></use></g></g></g><g data-mml-node="mo" transform="translate(5960.7,0) translate(0 -0.5)"><use data-c="7C" xlink:href="#MJX-1-TEX-N-7C"></use></g></g><g data-mml-node="mi" transform="translate(3127.2,-345) scale(0.707)"><use data-c="1D45B" xlink:href="#MJX-1-TEX-I-1D45B"></use></g><rect width="6438.7" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+</ol>
+</li>
+<li>Variance and standard deviation<ol>
+<li>总体标准差和总体标准差<ol>
+<li>总体方差 Population Variance</li>
+<li>总体标准差 Population Standard Deviation</li>
+</ol>
+</li>
+<li>样本方差和样本标准差<ol>
+<li>样本方差 Sample Variance<ol>
+<li><img src="https://static.dake.win/static/image/quan/sample-variance.png" alt="sample-variance"></li>
+</ol>
+</li>
+<li>样本标准差 Sample Standard Deviation<ol>
+<li><img src="https://static.dake.win/static/image/quan/sample-stanard-deviation.png" alt="sample-standard-deviation"></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Downside deviation： is a measure of dispersion of the observations below the target.<ol>
+<li>意义：A measure of down side risk.</li>
+<li>公式：<ol>
+<li><img src="https://static.dake.win/static/image/quan/target-downside-deviation.png" alt="Target-downside-deviation"></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>Relative dispersion<ol>
+<li>Coefficient of variation(CV) 变异系数</li>
+<li>公式：  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.132ex;" xmlns="http://www.w3.org/2000/svg" width="8.835ex" height="2.731ex" role="img" focusable="false" viewBox="0 -706.5 3905 1207" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-1-TEX-I-1D436" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q484 659 454 652T382 628T299 572T226 479Q194 422 175 346T156 222Q156 108 232 58Q280 24 350 24Q441 24 512 92T606 240Q610 253 612 255T628 257Q648 257 648 248Q648 243 647 239Q618 132 523 55T319 -22Q206 -22 128 53T50 252Z"></path><path id="MJX-1-TEX-I-1D449" d="M52 648Q52 670 65 683H76Q118 680 181 680Q299 680 320 683H330Q336 677 336 674T334 656Q329 641 325 637H304Q282 635 274 635Q245 630 242 620Q242 618 271 369T301 118L374 235Q447 352 520 471T595 594Q599 601 599 609Q599 633 555 637Q537 637 537 648Q537 649 539 661Q542 675 545 679T558 683Q560 683 570 683T604 682T668 681Q737 681 755 683H762Q769 676 769 672Q769 655 760 640Q757 637 743 637Q730 636 719 635T698 630T682 623T670 615T660 608T652 599T645 592L452 282Q272 -9 266 -16Q263 -18 259 -21L241 -22H234Q216 -22 216 -15Q213 -9 177 305Q139 623 138 626Q133 637 76 637H59Q52 642 52 648Z"></path><path id="MJX-1-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-1-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path><path id="MJX-1-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-1-TEX-N-AF" d="M69 544V590H430V544H69Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mi"><use data-c="1D436" xlink:href="#MJX-1-TEX-I-1D436"></use></g><g data-mml-node="mi" transform="translate(760,0)"><use data-c="1D449" xlink:href="#MJX-1-TEX-I-1D449"></use></g><g data-mml-node="mo" transform="translate(1806.8,0)"><use data-c="3D" xlink:href="#MJX-1-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2862.6,0)"><g data-mml-node="mi" transform="translate(355.4,394) scale(0.707)"><use data-c="1D460" xlink:href="#MJX-1-TEX-I-1D460"></use></g><g data-mml-node="TeXAtom" transform="translate(220,-500.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-1-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-1-TEX-N-AF"></use></g></g></g><rect width="802.5" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+<li>CV就是样本标准差和样本均值的比值；</li>
+<li>A measure of <strong>risk per unit fo mean return</strong>, thus <strong>the lower is better</strong>.</li>
+</ol>
+</li>
+</ol>
+<h3 id="三、偏度-Skewness"><a href="#三、偏度-Skewness" class="headerlink" title="三、偏度 Skewness"></a>三、偏度 Skewness</h3><ol>
+<li>The normal distribution(Mean &#x3D; Median &#x3D; Mode)</li>
+</ol>
+<p><img src="https://static.dake.win/static/image/quan/symmetrical-distribution.png" alt="Symmetrical distribution"></p>
+<ol start="2">
+<li>Positively Skewed</li>
+</ol>
+<p><img src="https://static.dake.win/static/image/quan/positively-skewed.png" alt="Positively skewed"></p>
+<ul>
+<li>Frequent small losses and a few extreme gains(fatter&#x2F;long right tail)</li>
+</ul>
+<ol start="3">
+<li>Negatively Skewed</li>
+</ol>
+<p><img src="https://static.dake.win/static/image/quan/negatively-skewed.png" alt="Positively skewed"></p>
+<ul>
+<li>Frequent small gains and a few extreme losses(fatter&#x2F;long left tail)</li>
+</ul>
+<h3 id="四、峰度-Kurtosis"><a href="#四、峰度-Kurtosis" class="headerlink" title="四、峰度 Kurtosis"></a>四、峰度 Kurtosis</h3><p>Kurtosis峰度，是一个统计度量指标，它告诉我们一个分布的峰值比正态分布更高还是更低。</p>
+<ul>
+<li>一个分布的峰值如果比正态分布大，那么就称其为尖峰的（leptokurtic）；kurtosis &gt; 3 ,excess kurtosis &gt; 0</li>
+<li>一个分布的峰度如果比正态分布小，那么就称其为低峰的（platykurtic）；kurtosis &lt; 3 ,excess kurtosis &lt; 0</li>
+<li>一个分布的峰度如果等于正态分布，那么就称其为中峰的（mesokurtic）；kurtosis &#x3D; 3 ,excess kurtosis &#x3D; 0</li>
+</ul>
+<p><img src="https://static.dake.win/static/image/quan/kurtosis.png" alt="kurtosis"></p>
+<p>一个具有正的超额峰度的收益率分布相对于正态分布，具有出现频率更高的极端偏离均值的偏差值。</p>
+<h3 id="五、协方差Covariance和相关系数Correlation"><a href="#五、协方差Covariance和相关系数Correlation" class="headerlink" title="五、协方差Covariance和相关系数Correlation"></a>五、协方差Covariance和相关系数Correlation</h3><ol>
+<li><p>协方差Covariance:</p>
+<ol>
+<li>定义：The sample of covariance is a measure of how two variables in a sample move together.</li>
+<li>公式：Cov(X,Y) &#x3D; ∑((Xi - X̅)*(Yi - Y̅)) &#x2F; (n - 1)<br><img src="https://static.dake.win/static/image/quan/covariance.png" alt="Covariance"></li>
+<li>正协方差: A positive covariance means X and Y tend to increase or decrease together.</li>
+<li>负协方差: A negative covariance means as one increases, the other decreases.</li>
+</ol>
+</li>
+<li><p>Sample Correlation Coefficient</p>
+<ol>
+<li>定义：“The sample correlation coefficient is a standardized measure of how two variables in a sample move together. The sample correlation coefficient (rXY) is the ratio of the sample covariance to the product of the two variables’ standard deviations”.</li>
+<li><strong>Correlation ranges from −1 and +1 for two random variables, X and Y.</strong></li>
+<li><strong>A correlation of 0 (uncorrelated variables) indicates an absence of any linear (that is, straight-line) relationship between the variables.</strong></li>
+<li><strong>A positive correlation close to +1 indicates a strong positive linear relationship.A correlation of 1 indicates a perfect linear relationship.</strong></li>
+<li><strong>A negative correlation close to −1 indicates a strong negative (that is, inverse) linear relationship. A correlation of −1 indicates a perfect inverse linear relationship.</strong></li>
+</ol>
+</li>
+</ol>
+<p><strong>Scatter Plots showing Various Degrees of Correlation</strong><br><img src="https://static.dake.win/static/image/quan/degrees-of-correlation.png" alt="degrees-of-correlation"></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/me">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/tags/">标签</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E9%9B%86%E4%B8%AD%E8%B6%8B%E5%8A%BF%E7%9A%84%E5%BA%A6%E9%87%8F-Measures-of-central-tendency"><span class="toc-number">1.</span> <span class="toc-text">一、集中趋势的度量 Measures of central tendency</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%86%E4%BD%8D%E6%95%B0Quantiles"><span class="toc-number">2.</span> <span class="toc-text">二、分位数Quantiles</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E7%A6%BB%E6%95%A3%E5%BA%A6%E7%9A%84%E5%BA%A6%E9%87%8F-Measures-of-dispersion"><span class="toc-number">3.</span> <span class="toc-text">二、离散度的度量 Measures of dispersion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%81%8F%E5%BA%A6-Skewness"><span class="toc-number">4.</span> <span class="toc-text">三、偏度 Skewness</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%B3%B0%E5%BA%A6-Kurtosis"><span class="toc-number">5.</span> <span class="toc-text">四、峰度 Kurtosis</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%8D%8F%E6%96%B9%E5%B7%AECovariance%E5%92%8C%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0Correlation"><span class="toc-number">6.</span> <span class="toc-text">五、协方差Covariance和相关系数Correlation</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://dake.win/2023/11/07/market-returns/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://dake.win/2023/11/07/market-returns/&text=市场收益率"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://dake.win/2023/11/07/market-returns/&is_video=false&description=市场收益率"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=市场收益率&body=Check out this article: https://dake.win/2023/11/07/market-returns/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://dake.win/2023/11/07/market-returns/&title=市场收益率"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://dake.win/2023/11/07/market-returns/&name=市场收益率&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://dake.win/2023/11/07/market-returns/&t=市场收益率"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    大可
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/me">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
