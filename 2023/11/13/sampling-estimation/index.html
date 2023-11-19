@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Sampling 抽样方法 Sampling methods Probability sampling method 概率抽样方法  Sample random sampling 简单随机抽样 vs. systematic sampling 系统抽样 简单随机抽样：A simple random sample is a subset of a larger population created i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="抽样和估计">
+<meta property="og:url" content="https://dake.win/2023/11/13/sampling-estimation/index.html">
+<meta property="og:site_name" content="大有可为">
+<meta property="og:description" content="Sampling 抽样方法 Sampling methods Probability sampling method 概率抽样方法  Sample random sampling 简单随机抽样 vs. systematic sampling 系统抽样 简单随机抽样：A simple random sample is a subset of a larger population created i">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/probability-sampling.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/central-limit-theorem.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/z-confidence-reliability-factor.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/choose-reliability-factor.png">
+<meta property="og:image" content="https://static.dake.win/static/image/quan/bootstrap-resampling.png">
+<meta property="article:published_time" content="2023-11-13T07:44:54.000Z">
+<meta property="article:modified_time" content="2023-11-19T14:30:11.195Z">
+<meta property="article:author" content="大可">
+<meta property="article:tag" content="离散型随机变量">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static.dake.win/static/image/quan/probability-sampling.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>抽样和估计</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="目录"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="顶部" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/me">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2023/11/11/common-probability-distributions/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://dake.win/2023/11/13/sampling-estimation/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://dake.win/2023/11/13/sampling-estimation/&text=抽样和估计"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://dake.win/2023/11/13/sampling-estimation/&is_video=false&description=抽样和估计"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=抽样和估计&body=Check out this article: https://dake.win/2023/11/13/sampling-estimation/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://dake.win/2023/11/13/sampling-estimation/&name=抽样和估计&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://dake.win/2023/11/13/sampling-estimation/&t=抽样和估计"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampling"><span class="toc-number">1.</span> <span class="toc-text">Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E7%9A%84%E5%88%86%E5%B8%83"><span class="toc-number">2.</span> <span class="toc-text">样本均值的分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Estimation"><span class="toc-number">3.</span> <span class="toc-text">Estimation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%9A%84%E5%81%8F%E5%B7%AE"><span class="toc-number">4.</span> <span class="toc-text">数据挖掘的偏差</span></a></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        抽样和估计
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">大可</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-11-13T07:44:54.000Z" class="dt-published" itemprop="datePublished">2023-11-13</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fa-solid fa-archive"></i>
+        <a class="category-link" href="/categories/Quantitative/">Quantitative</a> › <a class="category-link" href="/categories/Quantitative/%E7%BB%9F%E8%AE%A1%E5%AD%A6/">统计学</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/%E7%A6%BB%E6%95%A3%E5%9E%8B%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F/" rel="tag">离散型随机变量</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h3 id="Sampling"><a href="#Sampling" class="headerlink" title="Sampling"></a>Sampling</h3><ol>
+<li>抽样方法 Sampling methods<ol>
+<li><p>Probability sampling method 概率抽样方法</p>
+<ol>
+<li>Sample random sampling 简单随机抽样 vs. systematic sampling 系统抽样<ol>
+<li>简单随机抽样：A simple random sample is a subset of a larger population created in such a way that each element of the population has an equal probability of being selected to the subset.</li>
+<li>系统抽样：“With systematic sampling, we select every kth member until we have a sample of the desired size. The sample that results from this procedure should be approximately random. Real sampling situations may require that we take an approximately random sample.</li>
+</ol>
+</li>
+<li>Stratified random sampling 分层随机抽样 vs. clustering sampling 聚类抽样<ol>
+<li>分层随机抽样（先分层，再抽样）：<ol>
+<li>In stratified random sampling, the population is divided into subpopulations (strata) based on one or more classification criteria. </li>
+<li>Simple random samples are then drawn from each stratum in sizes proportional to the relative size of each stratum in the population. These samples are then pooled to form a stratified random sample.</li>
+</ol>
+</li>
+<li>聚类抽样 Cluster samping：<ol>
+<li>divide the population into clusters based on some criteria,e.g,geographic parameter.</li>
+<li>using sample random sampling to choose certain clusters.<ol>
+<li>One-stage cluster smapling: all the members in each sampled cluster are included.</li>
+<li>Two-stage cluster sampling: a subsample is selected from each sampled cluster through random sampling.</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>概率抽样方法的图例：<br>  <img src="https://static.dake.win/static/image/quan/probability-sampling.png" alt="probability-sampling"></li>
+</ol>
+</li>
+<li><p>Non-probability sampling 非概率抽样方法</p>
+<ol>
+<li>Convenience sampling 方便取样：是一种非概率抽样方法，其特点是研究者选择那些最容易获得的个体作为样本。这种抽样方法的优点是方便和快速，但其缺点是可能导致样本不够代表性，因为研究者往往选择那些容易获取的个体，而不是随机选择。</li>
+<li>Judgemental sampling 判断性抽样：是一种非概率抽样方法，它基于研究者的专业判断和经验，有目的地选择符合研究目的的个体作为样本。与方便抽样不同，判断抽样更注重研究者的主观判断力，以确保选取的样本能够提供对研究问题有代表性的信息。</li>
+</ol>
+</li>
+<li><p>Sampling error vs. samplng bias</p>
+<ol>
+<li>Sampling error 抽样误差：Sampling error is the difference between the observed value of a statistic and the quantity it is intended to estimate as a result of using subsets of the population.抽样误差是统计量的观测值和所要估计的真实值之间的差别。</li>
+<li>Sampling bias 采样偏差：是指在研究中使用的样本并不代表研究总体的情况，导致研究结果在推广到整个总体时产生误差。抽样偏差可能是由于采样方法的问题、样本选择的不恰当或者样本中某些特征的过度强调而引起的。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="样本均值的分布"><a href="#样本均值的分布" class="headerlink" title="样本均值的分布"></a>样本均值的分布</h3><ol>
+<li><p>中心极限定理 The Central Limit Theorem</p>
+<ol>
+<li>定义：“Given a population described by any probability distribution having mean µ and finite variance σ², <strong>the sampling distribution of the sample mean</strong>  computed from random samples of size n from this population will be approximately normal with mean <strong>µ (the population mean)</strong> and variance σ²&#x2F;n–&gt;样本均值的放大 (the population variance divided by n) when the sample size n is large”</li>
+<li>Sampling distribution with increasing sample size<br><img src="https://static.dake.win/static/image/quan/central-limit-theorem.png" alt="central-limit-theorem"></li>
+</ol>
+</li>
+<li><p>样本均值标准误差 Standard error：</p>
+<ol>
+<li>定义：“Given a population described by any probability distribution having mean µ and finite variance σ², <strong>the sampling distribution of the sample mean</strong>  computed from random samples of size n from this population will be approximately normal with mean <strong>µ (the population mean)</strong> and variance σ²&#x2F;n–&gt;样本均值的放大 (the population variance divided by n) when the sample size n is large”</li>
+<li>定义：对于有一个标准差为的总体中所取出的样本计算的样本均值，其标准误差可以用下面的两个表达式来表示。样本均值的标准误差是一个在实践中应用中心极限定理时所使用的重要数据。<ol>
+<li>当样本总体标准差已知： <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.334ex;" xmlns="http://www.w3.org/2000/svg" width="9.18ex" height="2.915ex" role="img" focusable="false" viewBox="0 -698.8 4057.4 1288.3" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-4-TEX-I-1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path><path id="MJX-4-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-4-TEX-N-AF" d="M69 544V590H430V544H69Z"></path><path id="MJX-4-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-4-TEX-N-221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path><path id="MJX-4-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D70E" xlink:href="#MJX-4-TEX-I-1D70E"></use></g><g data-mml-node="TeXAtom" transform="translate(604,-306.8) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-4-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-4-TEX-N-AF"></use></g></g></g></g></g><g data-mml-node="mo" transform="translate(1534.2,0)"><use data-c="3D" xlink:href="#MJX-4-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2590,0)"><g data-mml-node="mi" transform="translate(531.8,394) scale(0.707)"><use data-c="1D70E" xlink:href="#MJX-4-TEX-I-1D70E"></use></g><g data-mml-node="msqrt" transform="translate(220,-436.1) scale(0.707)"><g transform="translate(853,0)"><g data-mml-node="mi"><use data-c="1D45B" xlink:href="#MJX-4-TEX-I-1D45B"></use></g></g><g data-mml-node="mo" transform="translate(0,-34.6)"><use data-c="221A" xlink:href="#MJX-4-TEX-N-221A"></use></g><rect width="600" height="42.4" x="853" y="723"></rect></g><rect width="1227.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+<li>当样本总体标准差未知： <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.334ex;" xmlns="http://www.w3.org/2000/svg" width="8.949ex" height="2.932ex" role="img" focusable="false" viewBox="0 -706.5 3955.4 1296.1" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-4-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path><path id="MJX-4-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-4-TEX-N-AF" d="M69 544V590H430V544H69Z"></path><path id="MJX-4-TEX-N-3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path><path id="MJX-4-TEX-N-221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path><path id="MJX-4-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msub"><g data-mml-node="mi"><use data-c="1D460" xlink:href="#MJX-4-TEX-I-1D460"></use></g><g data-mml-node="TeXAtom" transform="translate(502,-306.8) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-4-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-4-TEX-N-AF"></use></g></g></g></g></g><g data-mml-node="mo" transform="translate(1432.2,0)"><use data-c="3D" xlink:href="#MJX-4-TEX-N-3D"></use></g><g data-mml-node="mfrac" transform="translate(2488,0)"><g data-mml-node="mi" transform="translate(567.9,394) scale(0.707)"><use data-c="1D460" xlink:href="#MJX-4-TEX-I-1D460"></use></g><g data-mml-node="msqrt" transform="translate(220,-436.1) scale(0.707)"><g transform="translate(853,0)"><g data-mml-node="mi"><use data-c="1D45B" xlink:href="#MJX-4-TEX-I-1D45B"></use></g></g><g data-mml-node="mo" transform="translate(0,-34.6)"><use data-c="221A" xlink:href="#MJX-4-TEX-N-221A"></use></g><rect width="600" height="42.4" x="853" y="723"></rect></g><rect width="1227.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="Estimation"><a href="#Estimation" class="headerlink" title="Estimation"></a>Estimation</h3><ol>
+<li><p>Point Estimators</p>
+<ol>
+<li>估计式 Estimator：<ol>
+<li>定义：我们用来计算样本均值和其他样本统计量的公式是估计公式，称作Estimator。</li>
+</ol>
+</li>
+<li>估计值 Estimate：“The particular value that we calculate from sample observations using an estimator is called an estimate”</li>
+<li>Point estimate： 根据所给定样本所计算的样本均值，它是用来作为总体均值的估计值，这个估计值被称为总体均值的点估计。</li>
+<li>Estimator的三个性质：<ol>
+<li>Unbiasedness 无偏性：一个无偏估计量是指其期望值等于它所要估计的参数值。</li>
+<li>Efficiency 有效性：当对于同一个参数，没有其他无偏估计量具有比该估计值更小抽样分布方差时，我们就称该无偏估计量是有效的。<strong>smallest variance</strong></li>
+<li>Consistency 一致性: 当样本量增大，该估计量接近总体参数真值的概率也会增大，并趋近于1.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>Confidence interval estimate 置信区间估计</p>
+<ol>
+<li>Confidence interval 置信区间：<ol>
+<li>定义：一个置信区间是一个区间范围，我们所要估计的参数将以一个给定的概率（1-⍺，其被称作置信度）将被包含在这个区间之中。</li>
+<li>Significance level(⍺) 显著性水平: the probability the observations would not fall in a specific range.</li>
+</ol>
+</li>
+<li>Confidence interval &#x3D; Point estimate ± Reliability factor * Standard deviation<ol>
+<li>Ponint estimate 点估计：参数的一个点估计</li>
+<li>Reliability factor 可靠性因子：基于点估计的假设分布和置信区间中置信度（1-⍺）的一个数</li>
+<li>Standard deviation 标准误：提供点估计的样本统计量的标准误</li>
+</ol>
+</li>
+<li>Reliability factors for normal distribution:<br><img src="https://static.dake.win/static/image/quan/z-confidence-reliability-factor.png" alt="Reliability factors for normal distribution"></li>
+<li>Choosing statistic for reliability factor:<br><img src="https://static.dake.win/static/image/quan/choose-reliability-factor.png" alt="choose-reliability-factor"></li>
+<li>Confidence interval of population mean with know population variance: <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.334ex;" xmlns="http://www.w3.org/2000/svg" width="11.877ex" height="3.447ex" role="img" focusable="false" viewBox="0 -934 5249.5 1523.5" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-4-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-4-TEX-N-AF" d="M69 544V590H430V544H69Z"></path><path id="MJX-4-TEX-N-B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path><path id="MJX-4-TEX-I-1D467" d="M347 338Q337 338 294 349T231 360Q211 360 197 356T174 346T162 335T155 324L153 320Q150 317 138 317Q117 317 117 325Q117 330 120 339Q133 378 163 406T229 440Q241 442 246 442Q271 442 291 425T329 392T367 375Q389 375 411 408T434 441Q435 442 449 442H462Q468 436 468 434Q468 430 463 420T449 399T432 377T418 358L411 349Q368 298 275 214T160 106L148 94L163 93Q185 93 227 82T290 71Q328 71 360 90T402 140Q406 149 409 151T424 153Q443 153 443 143Q443 138 442 134Q425 72 376 31T278 -11Q252 -11 232 6T193 40T155 57Q111 57 76 -3Q70 -11 59 -11H54H41Q35 -5 35 -2Q35 13 93 84Q132 129 225 214T340 322Q352 338 347 338Z"></path><path id="MJX-4-TEX-I-1D6FC" d="M34 156Q34 270 120 356T309 442Q379 442 421 402T478 304Q484 275 485 237V208Q534 282 560 374Q564 388 566 390T582 393Q603 393 603 385Q603 376 594 346T558 261T497 161L486 147L487 123Q489 67 495 47T514 26Q528 28 540 37T557 60Q559 67 562 68T577 70Q597 70 597 62Q597 56 591 43Q579 19 556 5T512 -10H505Q438 -10 414 62L411 69L400 61Q390 53 370 41T325 18T267 -2T203 -11Q124 -11 79 39T34 156ZM208 26Q257 26 306 47T379 90L403 112Q401 255 396 290Q382 405 304 405Q235 405 183 332Q156 292 139 224T121 120Q121 71 146 49T208 26Z"></path><path id="MJX-4-TEX-N-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path><path id="MJX-4-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-4-TEX-I-1D70E" d="M184 -11Q116 -11 74 34T31 147Q31 247 104 333T274 430Q275 431 414 431H552Q553 430 555 429T559 427T562 425T565 422T567 420T569 416T570 412T571 407T572 401Q572 357 507 357Q500 357 490 357T476 358H416L421 348Q439 310 439 263Q439 153 359 71T184 -11ZM361 278Q361 358 276 358Q152 358 115 184Q114 180 114 178Q106 141 106 117Q106 67 131 47T188 26Q242 26 287 73Q316 103 334 153T356 233T361 278Z"></path><path id="MJX-4-TEX-N-221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path><path id="MJX-4-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-4-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-4-TEX-N-AF"></use></g></g></g><g data-mml-node="mo" transform="translate(1074.2,0)"><use data-c="B1" xlink:href="#MJX-4-TEX-N-B1"></use></g><g data-mml-node="msub" transform="translate(2074.4,0)"><g data-mml-node="mi"><use data-c="1D467" xlink:href="#MJX-4-TEX-I-1D467"></use></g><g data-mml-node="TeXAtom" transform="translate(498,-176.7) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D6FC" xlink:href="#MJX-4-TEX-I-1D6FC"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(640,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#MJX-4-TEX-N-2F"></use></g></g><g data-mml-node="mn" transform="translate(1140,0)"><use data-c="32" xlink:href="#MJX-4-TEX-N-32"></use></g></g></g><g data-mml-node="mfrac" transform="translate(3782.1,0)"><g data-mml-node="mi" transform="translate(531.8,394) scale(0.707)"><use data-c="1D70E" xlink:href="#MJX-4-TEX-I-1D70E"></use></g><g data-mml-node="msqrt" transform="translate(220,-436.1) scale(0.707)"><g transform="translate(853,0)"><g data-mml-node="mi"><use data-c="1D45B" xlink:href="#MJX-4-TEX-I-1D45B"></use></g></g><g data-mml-node="mo" transform="translate(0,-34.6)"><use data-c="221A" xlink:href="#MJX-4-TEX-N-221A"></use></g><rect width="600" height="42.4" x="853" y="723"></rect></g><rect width="1227.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container></li>
+<li>Confidence interval of population mean with unknow population variance: <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -1.334ex;" xmlns="http://www.w3.org/2000/svg" width="11.641ex" height="3.447ex" role="img" focusable="false" viewBox="0 -934 5145.5 1523.5" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="MJX-3-TEX-I-1D44B" d="M42 0H40Q26 0 26 11Q26 15 29 27Q33 41 36 43T55 46Q141 49 190 98Q200 108 306 224T411 342Q302 620 297 625Q288 636 234 637H206Q200 643 200 645T202 664Q206 677 212 683H226Q260 681 347 681Q380 681 408 681T453 682T473 682Q490 682 490 671Q490 670 488 658Q484 643 481 640T465 637Q434 634 411 620L488 426L541 485Q646 598 646 610Q646 628 622 635Q617 635 609 637Q594 637 594 648Q594 650 596 664Q600 677 606 683H618Q619 683 643 683T697 681T738 680Q828 680 837 683H845Q852 676 852 672Q850 647 840 637H824Q790 636 763 628T722 611T698 593L687 584Q687 585 592 480L505 384Q505 383 536 304T601 142T638 56Q648 47 699 46Q734 46 734 37Q734 35 732 23Q728 7 725 4T711 1Q708 1 678 1T589 2Q528 2 496 2T461 1Q444 1 444 10Q444 11 446 25Q448 35 450 39T455 44T464 46T480 47T506 54Q523 62 523 64Q522 64 476 181L429 299Q241 95 236 84Q232 76 232 72Q232 53 261 47Q262 47 267 47T273 46Q276 46 277 46T280 45T283 42T284 35Q284 26 282 19Q279 6 276 4T261 1Q258 1 243 1T201 2T142 2Q64 2 42 0Z"></path><path id="MJX-3-TEX-N-AF" d="M69 544V590H430V544H69Z"></path><path id="MJX-3-TEX-N-B1" d="M56 320T56 333T70 353H369V502Q369 651 371 655Q376 666 388 666Q402 666 405 654T409 596V500V353H707Q722 345 722 333Q722 320 707 313H409V40H707Q722 32 722 20T707 0H70Q56 7 56 20T70 40H369V313H70Q56 320 56 333Z"></path><path id="MJX-3-TEX-I-1D461" d="M26 385Q19 392 19 395Q19 399 22 411T27 425Q29 430 36 430T87 431H140L159 511Q162 522 166 540T173 566T179 586T187 603T197 615T211 624T229 626Q247 625 254 615T261 596Q261 589 252 549T232 470L222 433Q222 431 272 431H323Q330 424 330 420Q330 398 317 385H210L174 240Q135 80 135 68Q135 26 162 26Q197 26 230 60T283 144Q285 150 288 151T303 153H307Q322 153 322 145Q322 142 319 133Q314 117 301 95T267 48T216 6T155 -11Q125 -11 98 4T59 56Q57 64 57 83V101L92 241Q127 382 128 383Q128 385 77 385H26Z"></path><path id="MJX-3-TEX-I-1D6FC" d="M34 156Q34 270 120 356T309 442Q379 442 421 402T478 304Q484 275 485 237V208Q534 282 560 374Q564 388 566 390T582 393Q603 393 603 385Q603 376 594 346T558 261T497 161L486 147L487 123Q489 67 495 47T514 26Q528 28 540 37T557 60Q559 67 562 68T577 70Q597 70 597 62Q597 56 591 43Q579 19 556 5T512 -10H505Q438 -10 414 62L411 69L400 61Q390 53 370 41T325 18T267 -2T203 -11Q124 -11 79 39T34 156ZM208 26Q257 26 306 47T379 90L403 112Q401 255 396 290Q382 405 304 405Q235 405 183 332Q156 292 139 224T121 120Q121 71 146 49T208 26Z"></path><path id="MJX-3-TEX-N-2F" d="M423 750Q432 750 438 744T444 730Q444 725 271 248T92 -240Q85 -250 75 -250Q68 -250 62 -245T56 -231Q56 -221 230 257T407 740Q411 750 423 750Z"></path><path id="MJX-3-TEX-N-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path id="MJX-3-TEX-I-1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path><path id="MJX-3-TEX-N-221A" d="M95 178Q89 178 81 186T72 200T103 230T169 280T207 309Q209 311 212 311H213Q219 311 227 294T281 177Q300 134 312 108L397 -77Q398 -77 501 136T707 565T814 786Q820 800 834 800Q841 800 846 794T853 782V776L620 293L385 -193Q381 -200 366 -200Q357 -200 354 -197Q352 -195 256 15L160 225L144 214Q129 202 113 190T95 178Z"></path><path id="MJX-3-TEX-I-1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="TeXAtom" data-mjx-texclass="ORD"><g data-mml-node="mover"><g data-mml-node="mi"><use data-c="1D44B" xlink:href="#MJX-3-TEX-I-1D44B"></use></g><g data-mml-node="mo" transform="translate(515.3,244) translate(-250 0)"><use data-c="AF" xlink:href="#MJX-3-TEX-N-AF"></use></g></g></g><g data-mml-node="mo" transform="translate(1074.2,0)"><use data-c="B1" xlink:href="#MJX-3-TEX-N-B1"></use></g><g data-mml-node="msub" transform="translate(2074.4,0)"><g data-mml-node="mi"><use data-c="1D461" xlink:href="#MJX-3-TEX-I-1D461"></use></g><g data-mml-node="TeXAtom" transform="translate(394,-176.7) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><use data-c="1D6FC" xlink:href="#MJX-3-TEX-I-1D6FC"></use></g><g data-mml-node="TeXAtom" data-mjx-texclass="ORD" transform="translate(640,0)"><g data-mml-node="mo"><use data-c="2F" xlink:href="#MJX-3-TEX-N-2F"></use></g></g><g data-mml-node="mn" transform="translate(1140,0)"><use data-c="32" xlink:href="#MJX-3-TEX-N-32"></use></g></g></g><g data-mml-node="mfrac" transform="translate(3678.1,0)"><g data-mml-node="mi" transform="translate(567.9,394) scale(0.707)"><use data-c="1D460" xlink:href="#MJX-3-TEX-I-1D460"></use></g><g data-mml-node="msqrt" transform="translate(220,-436.1) scale(0.707)"><g transform="translate(853,0)"><g data-mml-node="mi"><use data-c="1D45B" xlink:href="#MJX-3-TEX-I-1D45B"></use></g></g><g data-mml-node="mo" transform="translate(0,-34.6)"><use data-c="221A" xlink:href="#MJX-3-TEX-N-221A"></use></g><rect width="600" height="42.4" x="853" y="723"></rect></g><rect width="1227.4" height="60" x="120" y="220"></rect></g></g></g></svg></mjx-container>
+<ol>
+<li>Degrees of freedom(df) &#x3D; n -1</li>
+</ol>
+</li>
+<li>Factors on width of confidence interval</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Factors</th>
+<th>Width of confidence interval</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Larger confidence level(1-⍺)</td>
+<td>Larger</td>
+</tr>
+<tr>
+<td>Larger significance level(⍺)</td>
+<td>Smaller</td>
+</tr>
+<tr>
+<td>Larger sample size(n,df)</td>
+<td>Smaller</td>
+</tr>
+<tr>
+<td>Larger Sample standard deviation(s)</td>
+<td>Larger</td>
+</tr>
+<tr>
+<td>t-distribution(against z-distribution)</td>
+<td>Larger</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>Resampling</p>
+<p> Bootstrap and jackknife are simple but powerful methods for statistical inference,and they are particularly useful when no analytical formula is available. Bootstrap constructs the sampling distribution of an estimator by repeatedly drawing samples from the original sample to find standard error and confidence interval. Jackknife draws repeated samples while leaving out one observation at a time from the set, without replacing it. Bootstrap 和 Jackknife 是简单但强大的统计推断方法，当没有可用的分析公式时它们特别有用。 Bootstrap 通过从原始样本中重复抽取样本来构建估计量的采样分布，以找到标准误差和置信区间。 Jackknife 会重复抽取样本，同时从集合中一次留下一个观察值，而不进行替换。</p>
+<p> <img src="https://static.dake.win/static/image/quan/bootstrap-resampling.png" alt="bootstrap-resampling"></p>
+</li>
+</ol>
+<h3 id="数据挖掘的偏差"><a href="#数据挖掘的偏差" class="headerlink" title="数据挖掘的偏差"></a>数据挖掘的偏差</h3><ol>
+<li>数据挖掘偏差 Data-snooping bias</li>
+<li>样本选择偏差 Sample selection bias<ol>
+<li>生存偏差 Survivorship bias</li>
+</ol>
+</li>
+<li>前视偏差 look-ahead bias</li>
+<li>时期偏差 time-period bias</li>
+<li>回补偏差 Backfill bias</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">首页</a></li>
+        
+          <li><a href="/about/me">关于</a></li>
+        
+          <li><a href="/archives/">归档</a></li>
+        
+          <li><a href="/tags/">标签</a></li>
+        
+          <li><a href="/categories/">分类</a></li>
+        
+          <li><a href="/search/">搜索</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Sampling"><span class="toc-number">1.</span> <span class="toc-text">Sampling</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B7%E6%9C%AC%E5%9D%87%E5%80%BC%E7%9A%84%E5%88%86%E5%B8%83"><span class="toc-number">2.</span> <span class="toc-text">样本均值的分布</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Estimation"><span class="toc-number">3.</span> <span class="toc-text">Estimation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E7%9A%84%E5%81%8F%E5%B7%AE"><span class="toc-number">4.</span> <span class="toc-text">数据挖掘的偏差</span></a></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://dake.win/2023/11/13/sampling-estimation/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://dake.win/2023/11/13/sampling-estimation/&text=抽样和估计"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://dake.win/2023/11/13/sampling-estimation/&is_video=false&description=抽样和估计"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=抽样和估计&body=Check out this article: https://dake.win/2023/11/13/sampling-estimation/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://dake.win/2023/11/13/sampling-estimation/&title=抽样和估计"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://dake.win/2023/11/13/sampling-estimation/&name=抽样和估计&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://dake.win/2023/11/13/sampling-estimation/&t=抽样和估计"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    大可
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/me">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/tags/">标签</a></li><!--
+     --><!--
+       --><li><a href="/categories/">分类</a></li><!--
+     --><!--
+       --><li><a href="/search/">搜索</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/dakewin/dakewin.github.io">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板！\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功！");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
